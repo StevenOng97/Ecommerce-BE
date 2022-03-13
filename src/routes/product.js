@@ -45,13 +45,15 @@ router.post('/products', auth, upload.array('file', 3), async (req, res) => {
   });
 
   const product = new Product({
-    name: req.body.name,
+    title: req.body.title,
     price: req.body.price,
     isNew: true,
     images: imgUrls,
-    category: req.body.category,
+    categories: req.body.categories,
+    desc: req.body.desc
   });
 
+  console.log("Product", product);
   try {
     await product.save();
     res.status(201).send(product);

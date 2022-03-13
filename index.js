@@ -34,6 +34,8 @@ app.use(express.json());
 app.use('/file', productRouter);
 
 app.get('/file/:filename', async (req, res) => {
+  const file = await gfs.files.findOne({ filename: req.params.filename });
+  console.log(file);
   try {
     const file = await gfs.files.findOne({ filename: req.params.filename });
     const readStream = gridfsBucket.openDownloadStream(file._id);
