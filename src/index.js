@@ -48,6 +48,10 @@ app.use(userRouter);
 app.use(cartRouter);
 app.use(orderRouter);
 
+app.get('/api', (req, res) => {
+  res.send({ data: 'Testing' });
+})
+
 app.listen(port, () => {
   console.log('Server is up on port ' + port);
 });
