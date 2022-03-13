@@ -35,7 +35,6 @@ app.use('/file', productRouter);
 
 app.get('/file/:filename', async (req, res) => {
   const file = await gfs.files.findOne({ filename: req.params.filename });
-  console.log(file);
   try {
     const file = await gfs.files.findOne({ filename: req.params.filename });
     const readStream = gridfsBucket.openDownloadStream(file._id);
@@ -46,7 +45,6 @@ app.get('/file/:filename', async (req, res) => {
 });
 
 app.get('/file', async (req, res) => {
-  console.log('gfs', gfs);
   const files = await gfs.files.find({});
   res.send(files);
 })
@@ -58,8 +56,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 app.get('/', (req, res) => {
-  console.log('gfs', gfs);
-  res.send(gfs);
+  res.send("Hello");
 })
 
 app.listen(port, () => {
