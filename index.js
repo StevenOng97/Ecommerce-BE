@@ -59,7 +59,7 @@ app.use(orderRouter);
 
 app.get('/', (req, res) => {
   console.log('gfs', gfs);
-  res.send("Api is Working as expected");
+  res.send(gfs);
 })
 
 app.listen(port, () => {
