@@ -5,7 +5,7 @@ const router = require("express").Router();
 
 //CREATE
 
-router.post("/", auth, async (req, res) => {
+router.post("/order", auth, async (req, res) => {
   const newOrder = new Order(req.body);
 
   try {
@@ -17,7 +17,7 @@ router.post("/", auth, async (req, res) => {
 });
 
 //UPDATE
-router.put("/:id", auth, async (req, res) => {
+router.put("/order/:id", auth, async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
@@ -33,7 +33,7 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 //DELETE
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/delete/:id", auth, async (req, res) => {
   try {
     await Order.findByIdAndDelete(req.params.id);
     res.status(200).json("Order has been deleted...");
@@ -43,7 +43,7 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 //GET USER ORDERS
-router.get("/find/me", auth, async (req, res) => {
+router.get("/order/me", auth, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user.id });
     res.status(200).json(orders);
@@ -54,7 +54,7 @@ router.get("/find/me", auth, async (req, res) => {
 
 // //GET ALL
 
-router.get("/", auth, async (req, res) => {
+router.get("/order", auth, async (req, res) => {
   try {
     const orders = await Order.find();
     res.status(200).json(orders);
@@ -65,7 +65,7 @@ router.get("/", auth, async (req, res) => {
 
 // GET MONTHLY INCOME
 
-router.get("/income", auth, async (req, res) => {
+router.get("/order/income", auth, async (req, res) => {
   const productId = req.query.pid;
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));

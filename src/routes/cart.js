@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 
 const router = new express.Router();
 
-router.post('/', auth, async (req, res) => {
+router.post('/cart', auth, async (req, res) => {
   const newCart = new Cart(req.body);
 
   try {
@@ -16,7 +16,7 @@ router.post('/', auth, async (req, res) => {
 });
 
 //UPDATE
-router.put('/:id', auth, async (req, res) => {
+router.put('/cart/:id', auth, async (req, res) => {
   try {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
@@ -32,7 +32,7 @@ router.put('/:id', auth, async (req, res) => {
 });
 
 //DELETE
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/cart/:id', auth, async (req, res) => {
   try {
     await Cart.findByIdAndDelete(req.params.id);
     res.status(200).json('Cart has been deleted...');
@@ -42,7 +42,7 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 //GET USER CART
-router.get('/find/me', auth, async (req, res) => {
+router.get('/cart/me', auth, async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.user.id });
     res.status(200).json(cart);
@@ -53,7 +53,7 @@ router.get('/find/me', auth, async (req, res) => {
 
 // //GET ALL
 
-router.get('/', auth, async (req, res) => {
+router.get('/cart', auth, async (req, res) => {
   try {
     const carts = await Cart.find();
     res.status(200).json(carts);

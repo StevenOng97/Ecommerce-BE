@@ -48,8 +48,8 @@ app.use(userRouter);
 app.use(cartRouter);
 app.use(orderRouter);
 
-app.get('/api', (req, res) => {
-  res.send({ data: 'Testing' });
+app.get('/', (req, res) => {
+  res.send("Api is Working as expected");
 })
 
 app.listen(port, () => {
