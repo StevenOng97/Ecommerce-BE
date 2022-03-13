@@ -46,6 +46,7 @@ app.get('/file/:filename', async (req, res) => {
 });
 
 app.get('/file', async (req, res) => {
+  console.log('gfs', gfs);
   const files = await gfs.files.find({});
   res.send(files);
 })
