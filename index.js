@@ -1,12 +1,12 @@
 const express = require('express');
-const connection = require('../db/mongoose');
+const connection = require('./db/mongoose');
 const app = express();
 const port = process.env.PORT;
 const cors = require('cors');
-const productRouter = require('./routes/product');
-const userRouter = require('./routes/user');
-const cartRouter = require('./routes/cart');
-const orderRouter = require('./routes/order');
+const productRouter = require('./src/routes/product');
+const userRouter = require('./src/routes/user');
+const cartRouter = require('./src/routes/cart');
+const orderRouter = require('./src/routes/order');
 
 // const productRouter = require('./routes/product');
 // const productRouter = require('./routes/product');
