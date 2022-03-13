@@ -45,6 +45,12 @@ app.get('/file/:filename', async (req, res) => {
   }
 });
 
+app.get('/file', async (req, res) => {
+  const files = await gfs.files.find({});
+  res.send(files);
+})
+
+
 app.use(productRouter);
 app.use(userRouter);
 app.use(cartRouter);
