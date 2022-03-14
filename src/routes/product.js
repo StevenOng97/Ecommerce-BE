@@ -6,22 +6,31 @@ const auth = require('../middleware/auth');
 
 router.get('/products', async (req, res) => {
   const qNew = req.query.new;
-  const qCategory = req.query.category;
+  const qCategory = req.query.categories;
+
   try {
+    const { page = 1, limit = 10 } = req.query;
     let products;
 
     if (qNew) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(1);
+      products = await Product.find()
+        .sort({ createdAt: -1 })
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
     } else if (qCategory) {
       products = await Product.find({
         categories: {
           $in: [qCategory],
         },
-      });
+      })
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
     } else {
-      products = await Product.find();
+      products = await Product.find()
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
     }
-
+    
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
@@ -52,7 +61,7 @@ router.post('/products', auth, upload.array('file', 3), async (req, res) => {
     categories: req.body.categories,
     desc: req.body.desc,
     sale: req.body?.sale,
-    priceAfterSale: req.body?.priceAfterSale
+    priceAfterSale: req.body?.priceAfterSale,
   });
 
   console.log(product);
