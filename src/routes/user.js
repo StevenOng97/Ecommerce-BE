@@ -13,26 +13,24 @@ router.post('/users', async (req, res) => {
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (e) {
-    res.status(400).send(e);
+    if (e.code && e.code === 11000) {
+      res.status(400).send('Your Email or Username is already existed!');
+    } else {
+      res.status(400).send(e);
+    }
   }
 });
 
 router.post('/users/login', async (req, res) => {
-  const user = await User.findByCredentials(
-    req.body.username,
-    req.body.password
-  );
-  const token = await user.generateAuthToken();
-  console.log(token);
   try {
     const user = await User.findByCredentials(
       req.body.username,
-      req.body.password
+      req.body.password,
     );
     const token = await user.generateAuthToken();
     res.send({ user, token });
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send(e.message);
   }
 });
 

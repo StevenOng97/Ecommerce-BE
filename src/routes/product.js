@@ -41,7 +41,7 @@ router.post('/products', auth, upload.array('file', 3), async (req, res) => {
   if (req.files.length < 3) return res.send('Please select a file.');
   const imgUrls = [];
   req.files.map(({ filename }) => {
-    imgUrls.push(filename);
+    imgUrls.push(`ecommerce-be.vercel.app/file/${filename}`);
   });
 
   const product = new Product({
@@ -53,7 +53,6 @@ router.post('/products', auth, upload.array('file', 3), async (req, res) => {
     desc: req.body.desc
   });
 
-  console.log("Product", product);
   try {
     await product.save();
     res.status(201).send(product);
