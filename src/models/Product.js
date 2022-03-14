@@ -12,6 +12,7 @@ const ProductSchema = new mongoose.Schema(
     inStock: { type: Boolean, default: true },
     isNew: { type: Boolean, default: false },
     priceAfterSale: { type: Number },
+    sale: { type: String }
   },
   { timestamps: true }
 );
