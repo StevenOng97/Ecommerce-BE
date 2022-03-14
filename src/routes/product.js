@@ -47,7 +47,7 @@ router.post('/products', auth, upload.array('file', 3), async (req, res) => {
   const product = new Product({
     title: req.body.title,
     price: req.body.price,
-    isNew: req.body.isNew,
+    isNew: req.body.isNew | true,
     images: imgUrls,
     categories: req.body.categories,
     desc: req.body.desc
