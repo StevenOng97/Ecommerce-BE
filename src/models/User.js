@@ -74,16 +74,18 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
-userSchema.statics.findByCredentials = async (username, password) => {
+userSchema.statics.findByCredentials = async (username, password, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
+    return res.status(400).send('Your credentials are incorrect, please try again');
     throw new Error('Your credentials are incorrect, please try again');
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
+    return res.status(400).send('Your credentials are incorrect, please try again');
     throw new Error('Your credentials are incorrect, please try again');
   }
 
