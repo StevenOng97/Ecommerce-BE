@@ -14,7 +14,9 @@ router.post('/users', async (req, res) => {
     res.status(201).send({ user, token });
   } catch (e) {
     if (e.code && e.code === 11000) {
-      res.status(400).send('Your Email or Username is already existed!');
+      res
+        .status(400)
+        .send({ error: 'Your Email or Username is already existed!' });
     } else {
       res.status(400).send(e);
     }
